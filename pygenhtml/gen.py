@@ -2,10 +2,13 @@ from . import tags as tg
 
 def genDoc():
     f = open('doc.html','w')
-    f.write('<!DOCTYPE html>')
+    f.write('<!DOCTYPE html>\n')
 
 def buildHTML(html, head, body):
-    fw = open('doc.html', 'w')
-    fr = open('dec.html', 'r')
+    f = open('doc.html', 'a')
+    fr = open('doc.html', 'r')
+
+    body_str = html.__str__()
+    f.write(body_str)
 
     

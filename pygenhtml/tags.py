@@ -8,6 +8,9 @@ class html:
     def setTag(self, tag):
         self.tags.append(tag)
 
+    def __str__(self) -> str:
+        return '<html>' + self.tags[0].__str__() + self.tags[1].__str__() + '</html>'
+
 ###---###---###---###---###---###---###---###---###---###
 
 class head:
@@ -16,11 +19,17 @@ class head:
     def setTag(self, tag):
         self.tags.append(tag)
 
+    def __str__(self):
+        return '<head><title>Title</title></head>'
+
 ###--- HEAD TAGS ---###
 
 class title:
     def __init__(self, title):
         self.title = title
+
+    def __str__(self):
+        return self.title
 
 class meta:
     def __init__(self, name, content):
@@ -48,6 +57,12 @@ class body:
 
     def setTag(self, tag):
         self.tags.append(tag)
+
+    def __str__(self):
+        attr_str = ''
+        for a,v in zip(self.attrs.keys(), self.attrs.values()):
+            attr_str = attr_str + a + v + ' '
+        return '<body ' + attr_str + '></body>'
 
 ###--- BODY TAGS ---###
 
