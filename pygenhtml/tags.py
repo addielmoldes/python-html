@@ -1,10 +1,3 @@
-from email.errors import HeaderDefect
-from mimetypes import init
-from multiprocessing import set_forkserver_preload
-from operator import methodcaller
-from turtle import ht
-
-
 class html:
     attrs = {}
     tags = []
@@ -186,10 +179,20 @@ class input:
         self.attrs[attr] = value
 
 class select:
-    pass
+    attrs = {}
+
+    def setAttr(self, attr, value):
+        self.attrs[attr] = value
 
 class option:
-    pass
+    attrs = {}
+    tags = []
+
+    def setAttr(self, attr, value):
+        self.attrs[attr] = value
+
+    def setTag(self, tag):
+        self.tags.append(tag) 
 
 class label:
     def __init__(self, for_, label):
