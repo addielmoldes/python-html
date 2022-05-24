@@ -9,7 +9,7 @@ class html:
         self.tags.append(tag)
 
     def __str__(self) -> str:
-        return '<html>' + self.tags[0].__str__() + self.tags[1].__str__() + '</html>'
+        return '<html>\n' + self.tags[0].__str__() + self.tags[1].__str__() + '</html>'
 
 ###---###---###---###---###---###---###---###---###---###
 
@@ -20,7 +20,13 @@ class head:
         self.tags.append(tag)
 
     def __str__(self):
-        return '<head><title>Title</title></head>'
+        head_str = '<head>\n'
+        for t in self.tags:
+            head_str = head_str + t.__str__() + ' '
+        
+        head_str = head_str + '</head>\n'
+        
+        return head_str
 
 ###--- HEAD TAGS ---###
 
@@ -29,22 +35,31 @@ class title:
         self.title = title
 
     def __str__(self):
-        return self.title
+        return '<title>' + self.title + '</title>'
 
 class meta:
     def __init__(self, name, content):
         self.name = name
         self.content = content
 
+    def __str__(self):
+        return '\n<meta name=' + self.name + ' content=' + self.content + '>'
+
 class link:
     def __init__(self, type, rel, href):
         self.type = type
         self.rel = rel
         self.href = href
+    
+    def __str__(self):
+        return '\n<link type=' + self.type + ' rel=' + self.rel + ' href=' + self.href + '>'
 
 class style:
     def __init__(self, code):
         self.code = code
+    
+    def __str__(self):
+        return '\n<style>\n' + self.code + '\n</style>'
 
 ###---###---###---###---###---###---###---###---###---###
 
@@ -61,8 +76,13 @@ class body:
     def __str__(self):
         attr_str = ''
         for a,v in zip(self.attrs.keys(), self.attrs.values()):
-            attr_str = attr_str + a + v + ' '
-        return '<body ' + attr_str + '></body>'
+            attr_str = attr_str + a + '=' + v + ' '
+
+        tag_str = ''
+        for t in self.tags:
+            tag_str = tag_str + t.__str__() + ' '
+
+        return '<body ' + attr_str + '>\n' + tag_str + '\n</body>\n'
 
 ###--- BODY TAGS ---###
 
@@ -236,3 +256,15 @@ class img:
     def __init__(self, src, alt):
         self.src = src
         self.alt = alt
+
+    attrs = {}
+
+    def setAttr(self, attr, value):
+        self.attrs[attr] = value
+
+    def __str__(self):
+        attr_str = ''
+        for a,v in zip(self.attrs.keys(), self.attrs.values()):
+            attr_str = attr_str + a + '=' + v + ' '
+
+        return '<img ' + attr_str + ' src=' + self.src + ' alt=' + self.alt + '>'
