@@ -1,4 +1,3 @@
-from webbrowser import open_new
 from . import tags as tg
 
 def genDoc():
